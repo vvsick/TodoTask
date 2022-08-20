@@ -4,6 +4,11 @@ import { Modal } from "../Modal/Modal";
 export default function TodoItem({todo, index}) {
     const [show, setShow] = useState(false);
 
+    function onEdit (editValue) {
+        todo.title = editValue;
+        console.log(todo.title)
+    }
+
     return (
         <li className="li">
             <span> 
@@ -11,7 +16,7 @@ export default function TodoItem({todo, index}) {
                 {todo.title} 
             </span>
             <button onClick={() => setShow(true)}>Редактировать</button>
-            <Modal show={show} todo={todo}/>
+            <Modal show={show} todo={todo} editTodo={onEdit}/>
         </li>
     )
 }

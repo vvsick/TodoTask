@@ -11,6 +11,7 @@ export const AddTodo = ({onAdd}) => {
             setInputValue('');
         };
     }
+
     return (
         <form onSubmit={submitHandler}>
           <p>Добавить задание</p>

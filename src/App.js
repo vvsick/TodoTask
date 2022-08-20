@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import './App.css';
 import { TodoList } from './Todo/TodoList.js';
 import { AddTodo } from './Todo/AddTodo.js';
-import Context from './Todo/Context';
+import deleteContext from './Todo/Context';
 
 function App() {
   const [todos, setTodos] = useState([]);
@@ -22,12 +22,12 @@ function App() {
     }]))
   }
 
-  function removeTodo(id) {
-    setTodos(todos.filter(todo => todo.id !== id))
+  function deleteTodo(id) {
+      setTodos(todos.filter(todo => todo.id !== id))
   }
 
   return (
-    <Context.Provider value={{removeTodo}}>
+    <deleteContext.Provider value={{deleteTodo}}>
     <div className='main'>
 
       <TodoList todos={todos} />
@@ -42,7 +42,7 @@ function App() {
       
       
     </div>
-    </Context.Provider>
+    </deleteContext.Provider>
   );
 }
 

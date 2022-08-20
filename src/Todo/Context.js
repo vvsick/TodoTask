@@ -1,5 +1,5 @@
 import React from "react";
 
-const Context = React.createContext();
+const deleteContext = React.createContext();
 
-export default Context
+export default deleteContext

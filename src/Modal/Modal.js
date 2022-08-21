@@ -1,45 +1,37 @@
-import React, {useState, useContext} from "react";
-import './Modal.css'
-import deleteContext from "../Todo/Context";
+import React from "react";
+import { AddTodo } from "../Todo/AddTodo";
+import "./Modal.css";
 
-export const Modal = ({show, todo, editTodo}) => {
-    const [editValue, setEditValue] = useState('');
-    const {deleteTodo} = useContext(deleteContext);
+export class Modal extends React.Component {
+  /**
+   * @param {string} title
+   * @param {string} status
+   */
+  submit(title, status) {
+    this.props.submit(title, status);
+  }
 
-    function submitHandler(event) {
-        event.preventDefault();
-
-        if (editValue.trim()) {
-            editTodo(editValue);
-            setEditValue('');
-        };
-    }
-
-    function editTodo () {
-
-    }
-
-    if (!show) {
-        return null
-    }
+  render() {
+    if (!(this.props.isActive ?? false)) return null;
 
     return (
-        <div className="modal">
-            <div className="modal-body">
-            <form onSubmit={submitHandler}>
-                <p>Редактировать задание</p>
-                <input value={editValue} onChange={event => setEditValue(event.target.value)}/>
-                <button type='submit'>Редактировать</button>
-            </form>
-
-                <button onClick={() => deleteTodo(todo.id)}>Удалить</button>
-
-                <div>
-                <a>ожидает </a>
-                <a>в процессе </a>
-                <a>выполнена</a>
-                </div>
-            </div>
+      <div className="modal">
+        <div className="modal-body">
+          <AddTodo
+            submit={(title, status) => this.submit(title, status)}
+            status={this.props.status}
+            mainLabel="Редактировать задание"
+            label="Редактировать"
+            title={this.props.title}
+          />
+          <button type="button" onClick={this.props.close}>
+            Закрыть
+          </button>
+          <button type="button" onClick={this.props.delete}>
+            Удалить
+          </button>
         </div>
-    )
+      </div>
+    );
+  }
 }

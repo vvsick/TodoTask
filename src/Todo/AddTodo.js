@@ -1,22 +1,49 @@
-import React, {useState} from "react";
+import React from "react";
+import { Status } from "../entities/TaskStatus.js";
 
-export const AddTodo = ({onAdd}) => {
-    const [inputValue, setInputValue] = useState('');
+export class AddTodo extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      title: this.props.title ?? "",
+      status: this.props.status ?? Status.NEW,
+    };
+  }
 
-    function submitHandler(event) {
-        event.preventDefault();
+  /**
+   * @param {Event} event
+   */
+  handleSubmit(event) {
+    event.preventDefault();
+    this.props.submit(this.state.title, this.state.status);
+  }
 
-        if (inputValue.trim()) {
-            onAdd(inputValue);
-            setInputValue('');
-        };
-    }
+  /**
+   * @param {Event} event
+   */
+  handleChange(type, { target }) {
+    this.setState({ [type]: target.value });
+  }
 
+  render() {
     return (
-        <form onSubmit={submitHandler}>
-          <p>Добавить задание</p>
-          <input value={inputValue} onChange={event => setInputValue(event.target.value)}/>
-          <button type='submit'>Добавить</button>
-        </form>
-    )
+      <form onSubmit={(e) => this.handleSubmit(e)}>
+        <p>{this.props.mainLabel ?? "Добавить задание"}</p>
+        <input
+          value={this.state.title}
+          onChange={(e) => this.handleChange("title", e)}
+        />
+
+        <select
+          value={this.state.status}
+          onChange={(e) => this.handleChange("status", e)}
+        >
+          <option value={Status.NEW}>Новое</option>
+          <option value={Status.PROCESS}>В работе</option>
+          <option value={Status.DONE}>Завершено</option>
+        </select>
+        <button type="submit">{this.props.label ?? "Добавить"}</button>
+      </form>
+    );
+  }
 }

@@ -1,48 +1,26 @@
-import React, { useState } from 'react';
-
-import './App.css';
-import { TodoList } from './Todo/TodoList.js';
-import { AddTodo } from './Todo/AddTodo.js';
-import deleteContext from './Todo/Context';
+import React from "react";
+import { TodoList } from "./Todo/TodoList.js";
+import { AddTodo } from "./Todo/AddTodo.js";
+import tasksRepository from "./repositories/tasksRepository.js";
+import Task from "./entities/Task.js";
+import "./App.css";
 
 function App() {
-  const [todos, setTodos] = useState([]);
-  
-  
-  // const todos = [
-  //   {id: 1, completed: false, title: 'Выгулять собаку'},
-  //   {id: 2, completed: false, title: 'Сходить в магазин'},
-  // ]
-
-  function addTodo(title) {
-    setTodos(todos.concat([{
-      title,
-      id: Date.now(),
-      completed: false
-    }]))
-  }
-
-  function deleteTodo(id) {
-      setTodos(todos.filter(todo => todo.id !== id))
+  /**
+   * @param {string} value
+   */
+  function add(title, status) {
+    const task = new Task(title, status);
+    tasksRepository.add(task);
   }
 
   return (
-    <deleteContext.Provider value={{deleteTodo}}>
-    <div className='main'>
-
-      <TodoList todos={todos} />
-
-      <div className='redact-wrapper'>
-        
-        <AddTodo onAdd={addTodo}/>
-        <div>
-          <p>Редактировать задание</p>
-        </div>
+    <div className="main">
+      <TodoList />
+      <div className="add-todo">
+      <AddTodo submit={(title, status) => add(title, status)} />
       </div>
-      
-      
     </div>
-    </deleteContext.Provider>
   );
 }
 

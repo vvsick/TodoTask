@@ -1,18 +1,7 @@
-/* Стили для App */
-
 .main {
     display: flex;
-    justify-content: space-between;
+    justify-content:space-between;
 }
-
-.redact-wrapper {
-    flex: 1 1 auto;
-    background-color: #f39251;
-}
-
-/* Конец стилей */
-
-/* Стили для TodoList */
 
 .list {
     flex: 1 1 auto;
@@ -20,21 +9,86 @@
     background-color: #f5eb5e;
 }
 
-.ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.li {
+.todo-list {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 5rem 1rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-bottom: 5rem;
+    flex-direction: column;
 }
 
+.todo-list__item {
+    display: flex;
+    border-radius: 4px;
+    box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, .1);
+    padding: 1em;
+    flex-direction: column;
+    width: 150px;
+    overflow: hidden;
+    white-space: nowrap;
+}
 
-/* Конец стилей */
+.todo-list__item span {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.todo-list__status {
+    font-size: 12px;
+}
+
+.new {
+    color: #817D7D;
+}
+
+.process {
+    color: #20B966;
+}
+
+.done {
+    color: #86B5DF;
+}
+
+button {
+    text-align:center;
+    font-size:13px;
+    font-weight: 700;
+    padding: 3px 6px;
+    background: #eaeef1;
+    margin: 15px auto;
+    border-radius: 5px;
+    color: rgba(0,0,0,.6);
+}
+
+button:hover {
+    background: #fff;
+}
+
+input {
+	width: 150px;
+	font-size: 13px;
+	padding: 6px 0 4px 10px;
+	border: 1px solid #cecece;
+	background: #F6F6f6;
+	border-radius: 8px;
+    margin-right: 5px;
+}
+
+select {
+	border-radius: 8px;
+	border: 1px solid #cecece;
+	background-color: #F6F6f6;
+	padding: 4px 15px 4px 10px;
+	color: #444;
+	background-position: 290px -145px;
+	overflow: hidden;
+	white-space:nowrap;
+	text-overflow: ellipsis;
+	-o-text-overflow: ellipsis;
+}
+
+form {
+    justify-items:flex-start;
+}
+
+.add-todo {
+    width: 300px;
+}
